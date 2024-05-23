@@ -3,8 +3,8 @@ from typing import Dict
 from omegaconf import DictConfig
 import torch
 from torch import nn, Tensor
-from utils.transform_utils import torch_rad2rot, torch_pos2local, torch_dir2local, torch_rad2local
-from utils.pose_pe import PosePE
+from ..utils.transform_utils import torch_rad2rot, torch_pos2local, torch_dir2local, torch_rad2local
+from ..utils.pose_pe import PosePE
 
 
 class SceneCentricRelative(nn.Module):
