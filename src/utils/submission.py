@@ -26,6 +26,10 @@ class SubWOMD:
         description: str,
         method_link: str,
         account_name: str,
+        uses_lidar_data: bool = False,
+        uses_camera_data: bool = False,
+        uses_public_model_pretraining: bool = False,
+        num_model_parameters: str = "XM",
     ) -> None:
         self.activate = activate
         if activate:
@@ -42,6 +46,11 @@ class SubWOMD:
                     self.submissions[_k].submission_type = 2
                 else:
                     self.submissions[_k].submission_type = 1
+                # New required fields, see: https://github.com/waymo-research/waymo-open-dataset/blob/5f8a1cd42491210e7de629b6f8fc09b65e0cbe99/src/waymo_open_dataset/protos/motion_submission.proto#L158
+                self.submissions[_k].uses_lidar_data = uses_lidar_data
+                self.submissions[_k].uses_camera_data = uses_camera_data
+                self.submissions[_k].uses_public_model_pretraining = uses_public_model_pretraining
+                self.submissions[_k].num_model_parameters = num_model_parameters
 
     def add_to_submissions(
         self,
