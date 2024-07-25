@@ -37,20 +37,27 @@ class SubWOMD:
             for _k in range(1, k_futures + 1):
                 self.submissions[_k] = motion_submission_pb2.MotionChallengeSubmission()
                 self.submissions[_k].account_name = account_name
-                self.submissions[_k].unique_method_name = f"{method_name}_K{_k}"
+
+                if _k == 6: # 6 preds = default
+                    self.submissions[_k].unique_method_name = method_name
+                else:
+                    self.submissions[_k].unique_method_name = f"{method_name} (K = {_k})"
+                
                 self.submissions[_k].authors.extend(list(authors))
                 self.submissions[_k].affiliation = affiliation
                 self.submissions[_k].description = description
                 self.submissions[_k].method_link = method_link
+
                 if interactive_challenge:
                     self.submissions[_k].submission_type = 2
                 else:
                     self.submissions[_k].submission_type = 1
+                
                 # New required fields, see: https://github.com/waymo-research/waymo-open-dataset/blob/5f8a1cd42491210e7de629b6f8fc09b65e0cbe99/src/waymo_open_dataset/protos/motion_submission.proto#L158
                 self.submissions[_k].uses_lidar_data = uses_lidar_data
                 self.submissions[_k].uses_camera_data = uses_camera_data
                 self.submissions[_k].uses_public_model_pretraining = uses_public_model_pretraining
-                self.submissions[_k].num_model_parameters = num_model_parameters
+                self.submissions[_k].num_model_parameters = num_model_parameters 
 
     def add_to_submissions(
         self,
